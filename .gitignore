@@ -2,4 +2,4 @@
 backend/uploads/
 *.pyc
 
-
+backend/db.sqlite3
