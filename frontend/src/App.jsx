@@ -1,21 +1,39 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import "./App.css";
 import { getMovies } from "./services/api";
+import MovieThumbs from "./components/MovieThumbs";
 
 function App() {
+  const [movies, setMovies] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
     async function fetchMovies() {
-      console.log(await getMovies());
+      try {
+        setIsLoading(true);
+        const res = await getMovies();
+        if (res) {
+          setMovies(res);
+        }
+      } catch (error) {
+        alert("Something went wrong.");
+      } finally {
+        setIsLoading(false);
+      }
     }
 
     fetchMovies();
   }, []);
 
   return (
-    <>
-      <p>Test</p>
-    </>
+    <div className="m-8">
+      <div className="flex flex-wrap gap-8">
+        {movies.map((movie) => (
+          <MovieThumbs {...movie} key={movie.id} />
+        ))}
+      </div>
+    </div>
   );
 }
 
