@@ -1,4 +1,5 @@
 .venv/
 backend/uploads/
-*__py_cache__/
+*.pyc
+
 

@@ -19,6 +19,11 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 
+from movies import views
+
+
 urlpatterns = [
+    path('movies/', views.MovieList.as_view()),
+    path('movies/<int:pk>/', views.MovieDetail.as_view()),
     path('admin/', admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
