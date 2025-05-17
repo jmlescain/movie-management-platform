@@ -1,5 +1,6 @@
 .venv/
 backend/uploads/
-*.pyc
+**.pyc
 
 backend/db.sqlite3
+backend/movies/__pycache__/models.cpython-312.pyc
