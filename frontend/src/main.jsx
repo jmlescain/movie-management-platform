@@ -14,6 +14,7 @@ createRoot(document.getElementById("root")).render(
         <Route path="*" element={<Navigate to="/" replace />} />
         <Route path="/" element={<App />} />
         <Route path="/upload" element={<Upload />} />
+        <Route path="/edit/:movieId" element={<Upload isEdit={true} />} />
         <Route path="/details/:movieId" element={<MovieDetails />} />
         <Route path="/play/" element={<MoviePlayer />} />
       </Routes>

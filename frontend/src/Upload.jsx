@@ -1,26 +1,37 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import DefaulButton from "./components/DefaultButton";
-import { postMovie } from "./services/api";
+import { deleteMovie, postMovie } from "./services/api";
 import { ScaleLoader } from "react-spinners";
 
-const UploadDone = ({ navigateBack }) => (
+const Dialog = ({ dialogText, navigateBack }) => (
   <>
     <div className="flex justify-center items-center flex-col h-full w-full bg-white absolute top-0 left-0">
-      <p className="font-bold mb-4">Upload done!</p>
+      <p className="font-bold mb-4">{dialogText}</p>
       <DefaulButton onClick={navigateBack}>OK</DefaulButton>
     </div>
   </>
 );
 
-export default function Upload() {
+export default function Upload({ isEdit }) {
   const navigate = useNavigate();
+  const { state } = useLocation();
+  const { movieDetails } = state;
   const [isLoading, setIsLoading] = useState(false);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [file, setFile] = useState("");
   const [uploadPercent, setUploadPercent] = useState(0);
   const [hasUploaded, setHasUploaded] = useState(false);
+  const [hasDeleted, setHasDeleteed] = useState(false);
+
+  useEffect(() => {
+    if (isEdit) {
+      const { title, description, video_file } = movieDetails;
+      setTitle(title);
+      setDescription(description);
+    }
+  }, [isEdit]);
 
   const onVideoSelect = (event) => {
     setFile(event.target.files[0]);
@@ -48,7 +59,23 @@ export default function Upload() {
     navigate(-1);
   };
 
-  if (hasUploaded) return <UploadDone navigateBack={navigateBack} />;
+  const onDelete = async () => {
+    try {
+      const res = await deleteMovie(movieDetails.id);
+      if (res) {
+        setHasDeleteed(true);
+      }
+    } catch (error) {
+      console.error(error);
+      alert("There was a problem. Try again later.");
+    }
+  };
+
+  if (hasUploaded)
+    return <Dialog dialogText={"Upload done!"} navigateBack={navigateBack} />;
+
+  if (hasDeleted)
+    return <Dialog dialogText={"Movie deleted."} navigateBack={navigateBack} />;
 
   return (
     <>
@@ -62,6 +89,7 @@ export default function Upload() {
               id="title"
               name="title"
               onChange={(e) => setTitle(e.target.value)}
+              value={title}
             />
           </div>
           <div className="flex flex-col mb-4">
@@ -73,10 +101,18 @@ export default function Upload() {
               rows={6}
               cols={50}
               onChange={(e) => setDescription(e.target.value)}
+              value={description}
             />
           </div>
           <div className="flex flex-col mb-8">
-            <label htmlFor="video_file">Video File</label>
+            <label htmlFor="video_file">
+              {isEdit && "Replace "}Video File{" "}
+              {isEdit && (
+                <span className="italic">
+                  (Leave blank if you do not want to replace the file.)
+                </span>
+              )}
+            </label>
             <input
               className="file:border-1 file:rounded-sm file:px-4 file:py-2 hover:file:cursor-pointer"
               type="file"
@@ -87,7 +123,16 @@ export default function Upload() {
             />
           </div>
           <div className="flex justify-center mx-4">
-            <DefaulButton onClick={onSubmit}>Upload</DefaulButton>
+            {isEdit ? (
+              <>
+                <DefaulButton isRed={true} onClick={onDelete}>
+                  Delete
+                </DefaulButton>
+                <DefaulButton onClick={onSubmit}>Save</DefaulButton>
+              </>
+            ) : (
+              <DefaulButton onClick={onSubmit}>Upload</DefaulButton>
+            )}
             <DefaulButton onClick={navigateBack}>Cancel</DefaulButton>
           </div>
         </div>

@@ -45,3 +45,13 @@ export const postMovie = async (title, description, file, onUploadProgress) => {
     throw error;
   }
 };
+
+export const deleteMovie = async (movieId) => {
+  try {
+    const res = await api.delete(`/movies/${movieId}/`);
+    return res && res.status === 204;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};

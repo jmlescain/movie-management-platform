@@ -19,6 +19,14 @@ export default function MovieDetails() {
     });
   };
 
+  const onEdit = () => {
+    navigate(`/edit/${movieId}`, {
+      state: {
+        movieDetails,
+      },
+    });
+  };
+
   useEffect(() => {
     const fetchMovieDetails = async () => {
       try {
@@ -29,6 +37,7 @@ export default function MovieDetails() {
         }
       } catch (error) {
         console.error(error);
+        navigate("/");
       } finally {
         setIsLoading(false);
       }
@@ -44,7 +53,7 @@ export default function MovieDetails() {
         <div />
         <div className="absolute bottom-0 flex flex-col items-start m-8">
           <DefaulButton onClick={onPlay}>Play</DefaulButton>
-          <DefaulButton>Edit</DefaulButton>
+          <DefaulButton onClick={onEdit}>Edit</DefaulButton>
         </div>
       </div>
       <div className="mx-4 mt-4">
