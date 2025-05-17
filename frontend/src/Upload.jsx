@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router";
 import DefaulButton from "./components/DefaultButton";
-import { deleteMovie, postMovie } from "./services/api";
+import { deleteMovie, editMovie, postMovie } from "./services/api";
 import { ScaleLoader } from "react-spinners";
 
 const Dialog = ({ dialogText, navigateBack }) => (
@@ -37,15 +37,26 @@ export default function Upload({ isEdit }) {
     setFile(event.target.files[0]);
   };
 
-  const onSubmit = async () => {
+  const onSubmit = async (isEdit = false) => {
     try {
       setIsLoading(true);
-      const res = await postMovie(title, description, file, onUploadProgress);
+      const res = isEdit
+        ? await editMovie(
+            movieDetails.id,
+            title,
+            description,
+            file,
+            onUploadProgress
+          )
+        : await postMovie(title, description, file, onUploadProgress);
       if (res) {
         setHasUploaded(true);
       }
     } catch (error) {
       console.error(error);
+      alert(
+        "There was a problem sending your data. Check your data and try again."
+      );
     } finally {
       setIsLoading(false);
     }
@@ -128,7 +139,7 @@ export default function Upload({ isEdit }) {
                 <DefaulButton isRed={true} onClick={onDelete}>
                   Delete
                 </DefaulButton>
-                <DefaulButton onClick={onSubmit}>Save</DefaulButton>
+                <DefaulButton onClick={() => onSubmit(true)}>Save</DefaulButton>
               </>
             ) : (
               <DefaulButton onClick={onSubmit}>Upload</DefaulButton>

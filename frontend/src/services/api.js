@@ -28,12 +28,17 @@ export const getMovieDetails = async (movieId) => {
   }
 };
 
+const generateFormData = (title, description, file) => {
+  const form = new FormData();
+  form.append("title", title);
+  form.append("description", description);
+  if (file) form.append("video_file", file);
+  return form;
+};
+
 export const postMovie = async (title, description, file, onUploadProgress) => {
   try {
-    const form = new FormData();
-    form.append("title", title);
-    form.append("description", description);
-    form.append("video_file", file);
+    const form = generateFormData(title, description, file);
     const res = await api.post("/movies/", form, {
       onUploadProgress,
     });
@@ -52,6 +57,25 @@ export const deleteMovie = async (movieId) => {
     return res && res.status === 204;
   } catch (error) {
     console.log(error);
+    throw error;
+  }
+};
+
+export const editMovie = async (
+  movieId,
+  title,
+  description,
+  file,
+  onUploadProgress
+) => {
+  try {
+    const form = generateFormData(title, description, file);
+    const res = await api.put(`/movies/${movieId}/`, form, onUploadProgress);
+    if (res) {
+      return res.data;
+    }
+  } catch (error) {
+    console.error(error);
     throw error;
   }
 };
