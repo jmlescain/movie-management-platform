@@ -15,3 +15,15 @@ export const getMovies = async () => {
     throw error;
   }
 };
+
+export const getMovieDetails = async (movieId) => {
+  try {
+    const res = await api.get(`/movies/${movieId}/`);
+    if (res) {
+      return res.data;
+    }
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
