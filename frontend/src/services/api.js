@@ -27,3 +27,21 @@ export const getMovieDetails = async (movieId) => {
     throw error;
   }
 };
+
+export const postMovie = async (title, description, file, onUploadProgress) => {
+  try {
+    const form = new FormData();
+    form.append("title", title);
+    form.append("description", description);
+    form.append("video_file", file);
+    const res = await api.post("/movies/", form, {
+      onUploadProgress,
+    });
+    if (res) {
+      return res.data;
+    }
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
