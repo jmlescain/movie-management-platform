@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
+import { ScaleLoader } from "react-spinners";
 import { getMovieDetails } from "./services/api";
 
 import GenericThumb from "./assets/generic_play_cropped.png";
@@ -21,12 +22,15 @@ export default function MovieDetails() {
   useEffect(() => {
     const fetchMovieDetails = async () => {
       try {
+        setIsLoading(true);
         const res = await getMovieDetails(movieId);
         if (res) {
           setMovieDetails(res);
         }
       } catch (error) {
         console.error(error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -50,6 +54,11 @@ export default function MovieDetails() {
         </div>
         <p className="mt-4 text-xl">{movieDetails.description}</p>
       </div>
+      {isLoading && (
+        <div className="flex justify-center items-center flex-col h-full w-full bg-white absolute top-0 left-0">
+          <ScaleLoader />
+        </div>
+      )}
     </div>
   );
 }
