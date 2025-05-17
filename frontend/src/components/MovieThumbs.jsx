@@ -24,9 +24,8 @@ export default function MovieThumbs({
         src={getThumbnailUrl(id)}
         width={256}
         height={144}
-        onError={({ currentTarget }) => {
-          currentTarget.onerror = null;
-          currentTarget.src = { GenericThumbnail };
+        onError={(e) => {
+          e.currentTarget.src = GenericThumbnail;
         }}
       />
       <p className="text-lg font-bold mt-2 hover:text-neutral-500">{title}</p>
