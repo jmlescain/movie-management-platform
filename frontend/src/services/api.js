@@ -79,3 +79,7 @@ export const editMovie = async (
     throw error;
   }
 };
+
+export const getThumbnailUrl = (movieId) => {
+  return `${import.meta.env.VITE_API_PATH}/uploads/thumbs/${movieId}.jpg`;
+};

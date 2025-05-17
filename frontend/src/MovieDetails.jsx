@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { ScaleLoader } from "react-spinners";
-import { getMovieDetails } from "./services/api";
+import { getMovieDetails, getThumbnailUrl } from "./services/api";
 
-import GenericThumb from "./assets/generic_play_cropped.png";
+import GenericThumbnail from "./assets/generic_play_cropped.png";
 import DefaulButton from "./components/DefaultButton";
 
 export default function MovieDetails() {
@@ -49,7 +49,14 @@ export default function MovieDetails() {
   return (
     <div>
       <div className="relative h-120 bg-neutral-500 overflow-hidden">
-        <img className="w-full h-full object-cover" src={GenericThumb} />
+        <img
+          className="w-full h-full object-cover"
+          src={getThumbnailUrl(movieId)}
+          onError={({ currentTarget }) => {
+            currentTarget.onerror = null;
+            currentTarget.src = { GenericThumbnail };
+          }}
+        />
         <div />
         <div className="absolute bottom-0 flex flex-col items-start m-8">
           <DefaulButton onClick={onPlay}>Play</DefaulButton>

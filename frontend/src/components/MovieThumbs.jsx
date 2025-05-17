@@ -1,7 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router";
 
-import genericThumbnail from "../assets/generic_play_cropped.png";
+import GenericThumbnail from "../assets/generic_play_cropped.png";
+import { getThumbnailUrl } from "../services/api";
 
 export default function MovieThumbs({
   id,
@@ -20,9 +21,13 @@ export default function MovieThumbs({
     <div className="hover:cursor-pointer" onClick={onThumbnailClick}>
       <img
         className="rounded-md"
-        src={genericThumbnail}
+        src={getThumbnailUrl(id)}
         width={256}
         height={144}
+        onError={({ currentTarget }) => {
+          currentTarget.onerror = null;
+          currentTarget.src = { GenericThumbnail };
+        }}
       />
       <p className="text-lg font-bold mt-2 hover:text-neutral-500">{title}</p>
     </div>
