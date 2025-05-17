@@ -15,7 +15,7 @@ createRoot(document.getElementById("root")).render(
         <Route path="/" element={<App />} />
         <Route path="/upload" element={<Upload />} />
         <Route path="/details/:movieId" element={<MovieDetails />} />
-        <Route path="/play/:movieId" element={<MoviePlayer />} />
+        <Route path="/play/" element={<MoviePlayer />} />
       </Routes>
     </StrictMode>
   </BrowserRouter>

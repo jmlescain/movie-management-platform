@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { getMovieDetails } from "./services/api";
 
 import GenericThumb from "./assets/generic_play_cropped.png";
@@ -7,9 +7,16 @@ import DefaulButton from "./components/DefaultButton";
 
 export default function MovieDetails() {
   const params = useParams();
+  const navigate = useNavigate();
   const { movieId } = params;
   const [movieDetails, setMovieDetails] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+
+  const onPlay = () => {
+    navigate(`/play/`, {
+      state: { videoPath: movieDetails.video_file },
+    });
+  };
 
   useEffect(() => {
     const fetchMovieDetails = async () => {
@@ -32,7 +39,7 @@ export default function MovieDetails() {
         <img className="w-full h-full object-cover" src={GenericThumb} />
         <div />
         <div className="absolute bottom-0 flex flex-col items-start m-8">
-          <DefaulButton>Play</DefaulButton>
+          <DefaulButton onClick={onPlay}>Play</DefaulButton>
           <DefaulButton>Edit</DefaulButton>
         </div>
       </div>
