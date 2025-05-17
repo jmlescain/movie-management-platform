@@ -30,6 +30,11 @@ function App() {
   return (
     <>
       <Header />
+      {movies.length === 0 && (
+        <p className="flex justify-center items-center h-full w-full absolute top-0 left-0 -z-10">
+          Start uploading your movies
+        </p>
+      )}
       <div className="m-8">
         <div className="flex flex-wrap gap-8">
           {movies.map((movie) => (
