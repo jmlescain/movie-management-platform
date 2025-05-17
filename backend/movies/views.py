@@ -38,7 +38,7 @@ class MovieDetail(APIView):
     
     def put(self, request, pk, format=None):
         movie = self.get_object(pk)
-        serializer = MovieSerializer(movie, data=request.data)
+        serializer = MovieSerializer(movie, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
