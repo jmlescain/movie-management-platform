@@ -13,10 +13,9 @@ const Dialog = ({ dialogText, navigateBack }) => (
   </>
 );
 
-export default function Upload({ isEdit }) {
+export default function Upload({ isEdit = false }) {
   const navigate = useNavigate();
   const { state } = useLocation();
-  const { movieDetails } = state;
   const [isLoading, setIsLoading] = useState(false);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -27,7 +26,7 @@ export default function Upload({ isEdit }) {
 
   useEffect(() => {
     if (isEdit) {
-      const { title, description, video_file } = movieDetails;
+      const { title, description, video_file } = state.movieDetails;
       setTitle(title);
       setDescription(description);
     }
@@ -37,7 +36,7 @@ export default function Upload({ isEdit }) {
     setFile(event.target.files[0]);
   };
 
-  const onSubmit = async (isEdit = false) => {
+  const onSubmit = async () => {
     try {
       setIsLoading(true);
       const res = isEdit
