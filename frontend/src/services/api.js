@@ -4,9 +4,9 @@ const api = axios.create({
   baseURL: import.meta.env.VITE_API_PATH,
 });
 
-export const getMovies = async () => {
+export const getMovies = async (sorting) => {
   try {
-    const res = await api.get("/movies");
+    const res = await api.get(`/movies/?ordering=${sorting}`);
     if (res) {
       return res.data;
     }
