@@ -5,7 +5,7 @@ import PlusIcon from "../assets/add_72.png";
 
 export default function Header() {
   return (
-    <div>
+    <div className="sticky top-0">
       <Link
         to={"/upload"}
         className="flex flex-row items-center justify-end pr-8 pt-4"
