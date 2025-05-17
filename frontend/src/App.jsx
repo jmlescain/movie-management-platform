@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import "./App.css";
 import { getMovies } from "./services/api";
 import MovieThumbs from "./components/MovieThumbs";
+import Header from "./components/Header";
 
 function App() {
   const [movies, setMovies] = useState([]);
@@ -27,13 +28,16 @@ function App() {
   }, []);
 
   return (
-    <div className="m-8">
-      <div className="flex flex-wrap gap-8">
-        {movies.map((movie) => (
-          <MovieThumbs {...movie} key={movie.id} />
-        ))}
+    <>
+      <Header />
+      <div className="m-8">
+        <div className="flex flex-wrap gap-8">
+          {movies.map((movie) => (
+            <MovieThumbs {...movie} key={movie.id} />
+          ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

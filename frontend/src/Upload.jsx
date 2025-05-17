@@ -1,6 +1,10 @@
 import React from "react";
+import { useNavigate } from "react-router";
+import DefaulButton from "./components/DefaultButton";
 
 export default function Upload() {
+  const navigate = useNavigate();
+
   return (
     <>
       <div className="m-12">
@@ -35,12 +39,14 @@ export default function Upload() {
             />
           </div>
           <div className="flex justify-center mx-4">
-            <button className=" border-2 rounded-sm mr-2 px-4 py-2 hover:cursor-pointer hover:bg-stone-300">
-              Upload
-            </button>
-            <button className="border-2 rounded-sm ml-2 px-4 py-2 hover:cursor-pointer hover:bg-stone-300">
+            <DefaulButton>Upload</DefaulButton>
+            <DefaulButton
+              onClick={() => {
+                navigate(-1);
+              }}
+            >
               Cancel
-            </button>
+            </DefaulButton>
           </div>
         </div>
       </div>
