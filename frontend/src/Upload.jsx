@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router";
+import { useLocation, useNavigate, useParams } from "react-router";
 import DefaulButton from "./components/DefaultButton";
 import { deleteMovie, editMovie, postMovie } from "./services/api";
 import { ScaleLoader } from "react-spinners";
@@ -15,6 +15,7 @@ const Dialog = ({ dialogText, navigateBack }) => (
 
 export default function Upload({ isEdit = false }) {
   const navigate = useNavigate();
+  const { movieId } = useParams();
   const { state } = useLocation();
   const [isLoading, setIsLoading] = useState(false);
   const [title, setTitle] = useState("");
@@ -40,13 +41,7 @@ export default function Upload({ isEdit = false }) {
     try {
       setIsLoading(true);
       const res = isEdit
-        ? await editMovie(
-            movieDetails.id,
-            title,
-            description,
-            file,
-            onUploadProgress
-          )
+        ? await editMovie(movieId, title, description, file, onUploadProgress)
         : await postMovie(title, description, file, onUploadProgress);
       if (res) {
         setHasUploaded(true);
@@ -71,7 +66,7 @@ export default function Upload({ isEdit = false }) {
 
   const onDelete = async () => {
     try {
-      const res = await deleteMovie(movieDetails.id);
+      const res = await deleteMovie(movieId);
       if (res) {
         setHasDeleteed(true);
       }
