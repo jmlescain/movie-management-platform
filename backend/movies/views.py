@@ -5,6 +5,8 @@ from rest_framework import permissions, viewsets, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
+from movies.tasks import generate_thumbnail
+
 from movies.serializers import MovieSerializer
 
 class MovieViewSet(viewsets.ModelViewSet):
@@ -21,6 +23,7 @@ class MovieList(APIView):
         serializer = MovieSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
+            generate_thumbnail.delay_on_commit(serializer.data["id"], serializer.instance.video_file.path)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
