@@ -56,6 +56,7 @@ But for faster development, I would recommend installing the following prerequis
 
 ## Known Issues/Limitations
 - Thumbnail generation is async. It starts as soon as the movie entry is commited to DB. Thus, the thumbnail link might return a `404` error code while it is still being generated. A placeholder thumbnail is provided as a fallback.
+- Redis and Celery is configured to work with Docker. If running the backend locally (without Docker), change the `CELERY_BROKER_URL` and `CELERY_RESULT_BACKEND` values in `settings.py` from `redis://redis:6379` to `redis://127.0.0.1:6379`.
 
 ## Demo Instructions
 ### Browsing movies with `Title` and `Date Added` sort
