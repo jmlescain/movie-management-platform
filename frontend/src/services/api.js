@@ -56,7 +56,7 @@ export const deleteMovie = async (movieId) => {
     const res = await api.delete(`/movies/${movieId}/`);
     return res && res.status === 204;
   } catch (error) {
-    console.log(error);
+    console.error(error);
     throw error;
   }
 };

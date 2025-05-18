@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useLocation, useNavigate, useParams } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 
 import BackIcon from "./assets/arrow_back_72.png";
 

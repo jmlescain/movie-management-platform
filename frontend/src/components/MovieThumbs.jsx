@@ -4,13 +4,7 @@ import { useNavigate } from "react-router";
 import GenericThumbnail from "../assets/generic_play_cropped.png";
 import { getThumbnailUrl } from "../services/api";
 
-export default function MovieThumbs({
-  id,
-  title,
-  description,
-  date_added,
-  video_file,
-}) {
+export default function MovieThumbs({ id, title }) {
   const navigate = useNavigate();
 
   const onThumbnailClick = () => {
