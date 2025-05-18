@@ -44,6 +44,8 @@ class MovieDetail(APIView):
         serializer = MovieSerializer(movie, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
+            generate_thumbnail.delay_on_commit(
+                serializer.data["id"], serializer.instance.video_file.path)
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
