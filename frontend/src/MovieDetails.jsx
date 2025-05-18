@@ -52,9 +52,8 @@ export default function MovieDetails() {
         <img
           className="w-full h-full object-cover"
           src={getThumbnailUrl(movieId)}
-          onError={({ currentTarget }) => {
-            currentTarget.onerror = null;
-            currentTarget.src = { GenericThumbnail };
+          onError={(e) => {
+            e.currentTarget.src = GenericThumbnail;
           }}
         />
         <div />

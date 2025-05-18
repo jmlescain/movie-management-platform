@@ -39,6 +39,7 @@ export default function Upload({ isEdit = false }) {
 
   const onSubmit = async () => {
     try {
+      setUploadPercent(0);
       setIsLoading(true);
       const res = isEdit
         ? await editMovie(movieId, title, description, file, onUploadProgress)

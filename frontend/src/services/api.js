@@ -70,7 +70,9 @@ export const editMovie = async (
 ) => {
   try {
     const form = generateFormData(title, description, file);
-    const res = await api.put(`/movies/${movieId}/`, form, onUploadProgress);
+    const res = await api.put(`/movies/${movieId}/`, form, {
+      onUploadProgress,
+    });
     if (res) {
       return res.data;
     }
