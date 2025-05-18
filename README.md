@@ -37,6 +37,7 @@ But for faster development, I would recommend installing the following prerequis
 2. `cd` into the repo directory
 3. Run `docker compose up`
 4. Wait until the docker images are built and the front-end, backend, and redis is running
+5. Visit `127.0.0.1:5173` to visit the web app. You can also visit `127.0.0.1:8000/admin` for the Django admin page (will need a superuser account).
 
 ### Without Docker
 1. Install Redis
@@ -51,6 +52,7 @@ But for faster development, I would recommend installing the following prerequis
 10. Run `python manage.py makemigrations && python manage.py migrate` to commit model migrations
 11. Run `python manage.py runserver` to start the Django development server
 12. Run `celery -A app worker -l INFO` to start our task queue
+13. Visit `127.0.0.1:5173` to visit the web app. You can also visit `127.0.0.1:8000/admin` for the Django admin page (will need a superuser account).
 
 ## Known Issues/Limitations
 - Thumbnail generation is async. It starts as soon as the movie entry is commited to DB. Thus, the thumbnail link might return a `404` error code while it is still being generated. A placeholder thumbnail is provided as a fallback.
