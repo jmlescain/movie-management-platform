@@ -56,3 +56,25 @@ But for faster development, I would recommend installing the following prerequis
 
 ## Known Issues/Limitations
 - Thumbnail generation is async. It starts as soon as the movie entry is commited to DB. Thus, the thumbnail link might return a `404` error code while it is still being generated. A placeholder thumbnail is provided as a fallback.
+
+## Demo Instructions
+### Browsing movies with `Title` and `Date Added` sort
+
+https://github.com/user-attachments/assets/9291c72f-8778-4eb6-a32d-c22ab4673410
+
+### Adding a movie
+
+https://github.com/user-attachments/assets/4fceef18-3976-4a5f-a6ac-08f874811648
+
+### Edit a movie's details
+
+https://github.com/user-attachments/assets/067dbdf3-2356-455f-b3d6-ddb907943dce
+
+### Update a movie's video file
+
+https://github.com/user-attachments/assets/71978e30-e40e-4932-a97f-43b9f4fdbdc8
+
+### Delete a movie
+
+https://github.com/user-attachments/assets/d6e0ad98-e3df-4c67-b16a-a3483d249f8f
+
