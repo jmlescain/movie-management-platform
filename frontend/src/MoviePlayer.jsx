@@ -6,6 +6,7 @@ import BackIcon from "./assets/arrow_back_72.png";
 export default function MoviePlayer() {
   const navigate = useNavigate();
   const { state } = useLocation();
+  const { videoPath } = state;
 
   return (
     <div className=" bg-black">
@@ -17,7 +18,7 @@ export default function MoviePlayer() {
         <p>Back</p>
       </Link>
       <video
-        src={`${import.meta.env.VITE_API_PATH}/${state.videoPath}`}
+        src={`${import.meta.env.VITE_API_PATH}/${videoPath}`}
         autoPlay={true}
         controls={true}
         className="h-screen w-screen"
